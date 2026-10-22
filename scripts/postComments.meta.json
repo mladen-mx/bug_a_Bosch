@@ -1,0 +1,59 @@
+{
+  "metaVersion": 2,
+  "key": "postComments",
+  "displayName": "Post Jira comments",
+  "description": "Posts the drafted reminder on every incomplete bug in audit.json (JIRA_BASE_URL + JIRA_PAT from the environment) and writes audit-report.md. dryRun=yes posts nothing. A failed POST makes the verdict blocking so the run pauses instead of losing comments. No model call.",
+  "color": "amber",
+  "icon": "",
+  "domain": "general",
+  "order": 99,
+  "runtime": "node",
+  "file": "postComments.mjs",
+  "command": null,
+  "timeoutMs": 300000,
+  "params": [
+    {
+      "id": "dryRun",
+      "type": "enum",
+      "required": false,
+      "label": "Dry run",
+      "description": "yes = post nothing, only write the report",
+      "options": [
+        "no",
+        "yes"
+      ],
+      "default": "no"
+    }
+  ],
+  "portSummary": "Reads audit; produces report, fail.",
+  "inputs": [
+    {
+      "id": "audit",
+      "type": "json",
+      "required": true
+    }
+  ],
+  "outputs": [
+    {
+      "id": "report",
+      "type": "md",
+      "when": "always",
+      "filename": "audit-report.md",
+      "store": "run",
+      "artifactKind": "report"
+    },
+    {
+      "id": "fail",
+      "type": "md",
+      "when": "blocking",
+      "filename": "audit-report.md",
+      "store": "run",
+      "artifactKind": "fail"
+    }
+  ],
+  "verdict": {
+    "filename": "post-verdict.json"
+  },
+  "createdBy": "ask:ask_46e52b82",
+  "updatedBy": "ask:ask_46e52b82"
+}

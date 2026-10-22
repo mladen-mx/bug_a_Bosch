@@ -1,0 +1,17 @@
+{
+  "name": "bug-a-bosch",
+  "version": "0.1.0",
+  "description": "Workflows shared from Worca — Bug Template Audit",
+  "engines": {
+    "worca-cc-api": ">=4 <5"
+  },
+  "worca": {
+    "exports": {
+      "bug-template-audit": {
+        "workflowId": "wf_bug-template-audit",
+        "name": "Bug Template Audit",
+        "updatedAt": "2026-10-22T11:32:46.160Z"
+      }
+    }
+  }
+}

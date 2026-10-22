@@ -1,0 +1,103 @@
+{
+  "version": 2,
+  "name": "Bug Template Audit",
+  "domain": "general",
+  "nodes": [
+    {
+      "id": "n_7iz0uv3a",
+      "kind": "task",
+      "x": 11,
+      "y": 132,
+      "config": {}
+    },
+    {
+      "id": "n_dkb39wtt",
+      "kind": "end",
+      "x": 891,
+      "y": 99,
+      "config": {}
+    },
+    {
+      "id": "n_548390d4",
+      "kind": "script",
+      "key": "fetchBugs",
+      "x": 22,
+      "y": 286,
+      "config": {
+        "params": {
+          "jql": "project = <KEY> AND issuetype = Bug AND created >= -24h ORDER BY created DESC",
+          "projectKey": "EBASBBM "
+        },
+        "awaitAll": true
+      }
+    },
+    {
+      "id": "n_creiff90",
+      "kind": "script",
+      "key": "postComments",
+      "x": 836,
+      "y": 517,
+      "config": {
+        "params": {
+          "dryRun": "yes"
+        }
+      }
+    },
+    {
+      "id": "n_w5wyxu0i",
+      "kind": "agent",
+      "key": "bugTemplateCheck",
+      "x": 319,
+      "y": 495,
+      "config": {
+        "model": "discretestack-stable"
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_2l6ot8lx",
+      "from": {
+        "node": "n_548390d4",
+        "port": "bugs"
+      },
+      "to": {
+        "node": "n_w5wyxu0i",
+        "port": "bugs"
+      }
+    },
+    {
+      "id": "w_0sfi382k",
+      "from": {
+        "node": "n_w5wyxu0i",
+        "port": "audit"
+      },
+      "to": {
+        "node": "n_creiff90",
+        "port": "audit"
+      }
+    },
+    {
+      "id": "w_c3si0m2i",
+      "from": {
+        "node": "n_creiff90",
+        "port": "report"
+      },
+      "to": {
+        "node": "n_dkb39wtt",
+        "port": "result"
+      }
+    },
+    {
+      "id": "w_tyrfx6e7",
+      "from": {
+        "node": "n_7iz0uv3a",
+        "port": "task"
+      },
+      "to": {
+        "node": "n_548390d4",
+        "port": "await"
+      }
+    }
+  ]
+}

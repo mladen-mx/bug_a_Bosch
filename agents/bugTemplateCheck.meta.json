@@ -1,0 +1,40 @@
+{
+  "key": "bugTemplateCheck",
+  "displayName": "Bug Template Check",
+  "description": "Audits Jira bugs against the mandatory template. Reads bugs JSON, writes an audit with missing items and reminder comments.",
+  "color": "amber",
+  "icon": "",
+  "agentFile": "bugTemplateCheck.md",
+  "runnerType": "producer",
+  "scope": "project",
+  "domain": "jira",
+  "fanOut": false,
+  "asksQuestions": false,
+  "questionsLocked": false,
+  "questionsDefault": false,
+  "order": 99,
+  "promptHints": "",
+  "requiresSkills": [],
+  "requiresAssets": [],
+  "metaVersion": 2,
+  "inputs": [
+    {
+      "id": "bugs",
+      "type": "json",
+      "label": "Reported bugs",
+      "required": true,
+      "as": "file"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "audit",
+      "type": "json",
+      "when": "always",
+      "filename": "audit.json",
+      "store": "run",
+      "artifactKind": "audit"
+    }
+  ],
+  "portSummary": "Reads bugs; produces audit."
+}

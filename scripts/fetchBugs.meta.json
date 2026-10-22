@@ -1,0 +1,59 @@
+{
+  "metaVersion": 2,
+  "key": "fetchBugs",
+  "displayName": "Fetch Jira bugs",
+  "description": "Pulls recent bugs from Jira Data Center (JIRA_BASE_URL + JIRA_PAT from the environment), drops bugs that already carry the [bug-template-check] reminder, and pre-computes the DEV/QUA/PROD hit per bug. No model call.",
+  "color": "amber",
+  "icon": "",
+  "domain": "general",
+  "order": 99,
+  "runtime": "node",
+  "file": "fetchBugs.mjs",
+  "command": null,
+  "timeoutMs": 120000,
+  "params": [
+    {
+      "id": "projectKey",
+      "type": "string",
+      "required": false,
+      "label": "Jira project key",
+      "description": "Replaces <KEY> in the JQL."
+    },
+    {
+      "id": "jql",
+      "type": "string",
+      "required": false,
+      "label": "JQL",
+      "description": "Default: project = <KEY> AND issuetype = Bug AND created >= -24h ORDER BY created DESC. For backlog only append: AND sprint is EMPTY AND statusCategory != Done (before ORDER BY).",
+      "default": "project = <KEY> AND issuetype = Bug AND created >= -24h ORDER BY created DESC"
+    },
+    {
+      "id": "maxResults",
+      "type": "number",
+      "required": false,
+      "label": "Max results",
+      "default": 100
+    },
+    {
+      "id": "fixturePath",
+      "type": "string",
+      "required": false,
+      "label": "Fixture file (testing only)",
+      "description": "Path to a JSON file with a Jira search response (or an issues array). When set, Jira is not called. Leave empty in real runs."
+    }
+  ],
+  "portSummary": "Produces bugs.",
+  "inputs": [],
+  "outputs": [
+    {
+      "id": "bugs",
+      "type": "json",
+      "when": "always",
+      "filename": "bugs.json",
+      "store": "run",
+      "artifactKind": "bugs"
+    }
+  ],
+  "createdBy": "ask:ask_46e52b82",
+  "updatedBy": "ask:ask_46e52b82"
+}
