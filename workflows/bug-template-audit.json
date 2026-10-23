@@ -13,16 +13,16 @@
     {
       "id": "n_dkb39wtt",
       "kind": "end",
-      "x": 891,
-      "y": 99,
+      "x": 506,
+      "y": 627,
       "config": {}
     },
     {
       "id": "n_548390d4",
       "kind": "script",
       "key": "fetchBugs",
-      "x": 22,
-      "y": 286,
+      "x": 715,
+      "y": 132,
       "config": {
         "params": {
           "jql": "project = <KEY> AND issuetype = Bug AND created >= -24h ORDER BY created DESC",
@@ -35,11 +35,11 @@
       "id": "n_creiff90",
       "kind": "script",
       "key": "postComments",
-      "x": 836,
-      "y": 517,
+      "x": 715,
+      "y": 363,
       "config": {
         "params": {
-          "dryRun": "yes"
+          "dryRun": "no"
         }
       }
     },
@@ -47,10 +47,10 @@
       "id": "n_w5wyxu0i",
       "kind": "agent",
       "key": "bugTemplateCheck",
-      "x": 319,
-      "y": 495,
+      "x": 143,
+      "y": 341,
       "config": {
-        "model": "discretestack-stable"
+        "model": "claude-sonnet-5-5"
       }
     }
   ],
